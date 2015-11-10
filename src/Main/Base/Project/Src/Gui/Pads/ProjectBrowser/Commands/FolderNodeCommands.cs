@@ -80,6 +80,7 @@ namespace ICSharpCode.SharpDevelop.Project.Commands
 			if (!FileUtility.IsEqualFileName(directoryName, copiedFileName)) {
 				if (includeInProject && ProjectService.OpenSolution != null) {
 					// get ProjectItems in source directory
+                    FileService.CopyFile(directoryName, copiedFileName, true, false);
 					foreach (IProject project in ProjectService.OpenSolution.Projects) {
 						if (!FileUtility.IsBaseDirectory(project.Directory, directoryName))
 							continue;
@@ -111,7 +112,6 @@ namespace ICSharpCode.SharpDevelop.Project.Commands
 					}
 				}
 				
-				FileService.CopyFile(directoryName, copiedFileName, true, false);
 				DirectoryNode newNode = new DirectoryNode(copiedFileName);
 				newNode.InsertSorted(node);
 				if (includeInProject) {
